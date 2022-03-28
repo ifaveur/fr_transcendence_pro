@@ -1,0 +1,31 @@
+<div class="bg">
+    <div class="centre">
+        <section class="titre" >Ready to Pong</section>
+        <section class="up-right"><app-logout></app-logout></section>
+        <div class="align">
+            
+            <button 
+                [ngClass]="{
+                    email: !state,
+                    emailfalse: state
+                }"
+                mat-raised-button color="primary" [disabled]="state" (click)="sendMail()">
+                <mat-icon class="icon-email" *ngIf="!state"> email</mat-icon>
+                <span *ngIf="state">{{count}}</span>
+            </button>
+            
+            <button class="input" mat-raised-button>     
+                <mat-form-field appearance="legacy">
+                    <mat-label>Your 2Fa code</mat-label>
+                    <input matInput input id="code" type="text" [formControl]="code" >
+                    <mat-icon matSuffix>games</mat-icon>
+                </mat-form-field>
+            </button>
+    </div>
+    <div>
+        <button mat-fab class="play"  color="primary"  (click)="receiveCode()">
+            <mat-icon class="play">play_circle_outline</mat-icon>
+        </button>
+    </div>
+    <app-dialog></app-dialog>
+</div>

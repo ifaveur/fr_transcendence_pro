@@ -1,0 +1,240 @@
+
+@use '/src/styles.scss' as stl;
+
+.content {
+    height: 100%;
+    width: 100%;
+}
+
+.lineL, .lineR, .circle1, .circle2 {
+    animation-delay: 10ms;
+	animation: stl.$rainbowneon;
+
+}
+
+.lineL {
+    height: 50%;
+    width: 50px;
+    position: absolute;
+    left: 9%;
+    top: 50%;
+    border: solid 2px;
+    transform: translate(0, -50%);
+    background-color: stl.$mybackground-color;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.lineR {
+    height: 50%;
+    width: 50px;
+    position: absolute;
+    right: 9%;
+    top: 50%;
+    border: solid 2px;
+    transform: translate(0, -50%);
+    background-color: stl.$mybackground-color;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.circle1 {
+    border-radius: 50%;
+    width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60%;
+    transform: translate(-50%, -50%);
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.circle2 {
+    border-radius: 50%;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.circle3 {
+    border-radius: 50%;
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 30%;
+    transform: translate(-50%, -50%);
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.bigrectL1 {
+    position: absolute;
+    height: 40%;
+    width: 10%;
+    left: 5%;
+    top: 55%;
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    border-bottom-left-radius: 100%;
+}
+
+.bigrectL2 {
+    position: absolute;
+    height: 35%;
+    width: 10%;
+    left: 5%;
+    top: 10%;
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    border-top-left-radius: 100%;
+}
+
+.bigrectR1 {
+    
+    position: absolute;
+    height: 40%;
+    width: 10%;
+    right: 5%;
+    top: 55%;
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    border-bottom-right-radius: 100%;
+}
+
+.bigrectR2 {
+    position: absolute;
+    height: 35%;
+    width: 10%;
+    right: 5%;
+    top: 10%;
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    border-top-right-radius: 100%;
+}
+
+.nameR, .nameL, .nameB {
+    position: absolute;
+    font-weight: bold;
+
+    font-size: xx-large;
+	animation: stl.$rainbowtextneon, stl.$rainbowtextshadowneon;
+    overflow: hidden;
+    text-align: center;
+}
+
+.nameL {
+    top: 35%;
+    left: 2%;
+    width: 300px;
+}
+
+.nameR {
+    top: 35%;
+    right: 2%;
+    width: 300px;
+}
+
+.nameB {
+    top: 85%;
+    width: 100%;
+}
+
+.top {
+    position: absolute;
+    top: 15%;
+    width: 40%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    background-color: stl.$mybackground-color;
+    border: solid 2px;
+
+}
+
+.topunder {
+    position: absolute;
+    width: 30%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: calc(15% + 20px);
+    height: 60px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border: solid 2px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    background-color: stl.$mybackground-color;
+}
+
+.big {
+    position: absolute;
+    top: 35%;
+    width: 40%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    height: 50px;
+    border-radius: 5px;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    background-color: stl.$mybackground-color;
+    border: solid 2px;
+}
+
+.jonction {
+    position: absolute;
+    width: 20px;
+    height: 15%;
+    border: solid 2px;
+    top: calc(15% + 50px);
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: stl.$mybackground-color;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+}
+
+.pillar1, .pillar2 {
+    top: calc(15% + 50px);
+    width: 50px;
+    height: 55%;
+    border: solid 2px;
+    position: absolute;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    background-color: stl.$mybackground-color;
+}
+
+.pillar1 {
+    left: 37%;
+}
+
+.pillar2 {
+    right: 37%;
+}
+
+.foot1, .foot2 {
+    width: 110px;
+    height: 70px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    top: calc(75% - 30px);
+    border: solid 2px;
+    position: absolute;
+	animation: stl.$rainbowneon, stl.$rainbowborderneon;
+    background-color: stl.$mybackground-color;
+}
+
+.foot1 {
+
+    left: calc(37% - 30px);
+}
+
+.foot2 {
+    right: calc(37% - 30px);
+}

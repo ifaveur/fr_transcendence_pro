@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+
+#BACKEND NEST.JS WITH FRONT ANGULAR
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    command: npm run start:prod
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/db
+      PORT: 3000
+      JWT_SECRET: ready_to_shine
+      JWT_REFRESH_SECRET: ready_to_shine_refresh
+      AUTH_URL: REPLACE_AUTH_URL
+      CLIENT_ID: REPLACE_CLIENT_ID
+      CLIENT_SECRET: REPLACE_CLIENT_SECRET
+      CALLBCK_URL: REPLACE_DOMAIN/callback
+      TOKEN_URL: https://api.intra.42.fr/oauth/token
+      DOMAIN: REPLACE_DOMAIN
+      MAIL: REPLACE_MAIL
+      PASS_MAIL: REPLACE_MAIL_PASS
+    ports:
+      - 3000:3000
+      - 9229:9229
+    restart: always
+
+#DATABASE POSTGRES
+# psql -h localhost -p 5432 -U user -d postgres -W
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - 35000:5432
+    restart: always
+
+#DATABASE-TOOL POSTGRES_ADMIN
+  postgres_admin:
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    ports:
+      - 5050:80
+    restart: always

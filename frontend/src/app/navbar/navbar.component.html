@@ -1,0 +1,153 @@
+<mat-toolbar color="primary" class="raw">
+    <button mat-icon-button  (click)="switch(1)" [disabled]="state === 1">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button  (click)="switch(3)" [disabled]="state === 3">
+        <mat-icon>videogame_assets</mat-icon>
+    </button>
+    <button mat-icon-button  (click)="switch(5)" [disabled]="state === 5">
+        <mat-icon>equalizer</mat-icon>
+    </button>
+    
+    <span class="spacer"></span>
+
+    <button mat-button [matMenuTriggerFor]="usermenu" >
+        <app-icone-avatar [user]="user"></app-icone-avatar>
+        {{user.name}}
+    </button>
+
+    <mat-menu #usermenu="matMenu" xPosition="before">
+        <button mat-menu-item [matMenuTriggerFor]="friendmenu">
+            <mat-icon>star</mat-icon>
+			<span>Friend list</span>
+        </button>
+        <button mat-menu-item [matMenuTriggerFor]="blockmenu">
+            <mat-icon>block</mat-icon>
+			<span>Blocked list</span>
+        </button>
+        <button mat-menu-item *ngIf="onlineList" [matMenuTriggerFor]="alluser">
+            <mat-icon>group</mat-icon>
+			<span>All user list</span>
+        </button>
+        <button mat-menu-item (click)="switch(4)"  [disabled]="state === 4">
+            <mat-icon>supervisor_account</mat-icon>
+            			<span>Profile page</span>
+        </button>
+    </mat-menu>
+
+    <mat-menu #friendmenu="matMenu" xPosition="before">
+        <button mat-menu-item *ngFor="let friend of friendList"
+            [matMenuTriggerFor]="testsubuser"
+            [matMenuTriggerData]="{userselect: friend}">
+            <span class="alignfriend">
+                <app-icone-avatar-chat class="alignfriendmenu"  pic={{friend.image_url}}></app-icone-avatar-chat>
+                <span>{{friend.name}}</span>
+            </span>
+        </button>
+    </mat-menu>
+    
+   
+    <mat-menu #blockmenu="matMenu" xPosition="before">
+        <button mat-menu-item *ngFor="let block of blackList"
+            [matMenuTriggerFor]="testsubuser"
+            [matMenuTriggerData]="{userselect: block}">
+            <span class="alignfriend">
+            <app-icone-avatar-chat pic={{block.image_url}}></app-icone-avatar-chat>
+			{{block.name}}</span>
+        </button>
+    </mat-menu>
+
+    <mat-menu #alluser="matMenu" xPosition="before" >
+        <mat-list  *ngIf="onlineList">
+            <button mat-menu-item *ngFor="let user of onlineList.online" class="onlinebadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat  matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                    <span>{{user.name}}</span>
+                </span>
+            </button>
+            <button mat-menu-item *ngFor="let user of onlineList.spectator" class="spectatorbadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat  matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                    <span>{{user.name}}</span>
+                </span>
+            </button>
+            <button mat-menu-item *ngFor="let user of onlineList.matchmaking" class="matchmakingbadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat  matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                    <span>{{user.name}}</span>
+                </span>
+            </button>
+            <button mat-menu-item *ngFor="let user of onlineList.gamestartpage" class="gamestartpagebadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat  matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                    <span>{{user.name}}</span>
+                </span>
+            </button>
+            <button mat-menu-item *ngFor="let user of onlineList.ingame" class="ingamebadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat  matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                    <span>{{user.name}}</span>
+                </span>
+            </button>
+            <button mat-menu-item class="under" *ngFor="let user of onlineList.offline" class="offlinebadge under"
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: user}">
+                <span class="alignbadge">
+                    <app-icone-avatar-chat matBadge="0" matBadgePosition='below before' matBadgeSize="small" pic={{user.image_url}}></app-icone-avatar-chat>
+                {{user.name}}
+                </span>
+            </button>
+        </mat-list>
+    </mat-menu>
+
+    <mat-menu #testsubuser="matMenu" xPosition="before">
+        <ng-template matMenuContent let-userselect="userselect">
+            <mat-list>
+                <mat-list-item>
+                    <app-icone-avatar-chat   pic={{userselect.image_url}}></app-icone-avatar-chat>
+                    <span>{{userselect.name}}</span>
+                </mat-list-item>
+            </mat-list>
+            <div *ngIf="userselect.id != iduser">
+                <button mat-menu-item (click)="addFriend(userselect.id)" *ngIf="friendListid.indexOf(userselect.id!) == -1 && blackListid.indexOf(userselect.id!) == -1">
+                  <mat-icon>add</mat-icon>
+                  <span>Add friend</span>
+                </button>
+                <button mat-menu-item (click)="removeFriend(userselect.id)" *ngIf="friendListid.indexOf(userselect.id!) > -1">
+                    <mat-icon>remove</mat-icon>
+                    <span>remove friend</span>
+                </button>
+                <button mat-menu-item (click)="blockUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1">
+                  <mat-icon>block</mat-icon>
+                  <span>Block user</span>
+                </button>
+                <button mat-menu-item (click)="unBlockUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) > -1">
+                    <mat-icon>motorcycle</mat-icon>
+                    <span>Unblock user</span>
+                </button>
+                <button mat-menu-item (click)="inviteUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1">
+                    <mat-icon>games</mat-icon>
+                    <span>Invit to play</span>
+                </button>
+                <button mat-menu-item (click)="goToProfilePage(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1">
+                    <mat-icon>local_pizza</mat-icon>
+                    <span>Profile page</span>
+                </button>
+            </div>
+        </ng-template>
+    </mat-menu>
+
+    <app-logout>
+
+    </app-logout>
+</mat-toolbar>

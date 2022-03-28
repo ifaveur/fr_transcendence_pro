@@ -1,0 +1,31 @@
+@use '/src/styles.scss' as stl;
+
+.content {
+    position: relative;
+    top: 15%;
+    left: 15%;
+    height: 70%;
+    width: 70%;
+    border-radius: 20px;
+
+    background-color: stl.$ligth-background;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    z-index: 10;
+}
+
+.tabcontent {
+    position: relative;
+    margin: 10px;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+}
+
+.overflow-hiden {
+    overflow: hidden;
+}

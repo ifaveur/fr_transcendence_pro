@@ -1,0 +1,48 @@
+@use '/src/styles.scss' as stl;
+
+.img_size {
+    width: 80px;
+    height: 80px;
+}
+
+table{
+    width: 100%;
+    padding: 1.5%;
+    border-radius: 34px;
+}
+
+.no-background {
+    background: none;
+    box-shadow: none;
+}
+
+.title {
+    font-size: 5vw;
+    color: white;
+    text-align: center;
+    margin-top: 5vh;
+}
+
+.scroll {
+    margin: 10px;
+    max-height: 580px;
+    overflow-y: auto;
+    border-radius: 34px;
+}
+
+.nav {
+    width: calc(90% - 20px);
+    margin: 2% 5% 5%;
+    padding: 10px;
+    max-height: 600px;
+    border-radius: 34px;
+    background-color: stl.$ligth-background;
+}
+
+th.mat-header-cell {
+    text-align: center;
+}
+
+td.mat-cell {
+    text-align: center;
+}

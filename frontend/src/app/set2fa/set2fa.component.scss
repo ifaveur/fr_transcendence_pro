@@ -1,0 +1,25 @@
+.slide2fa {
+    margin: 8px 0;
+    display: block;
+  }
+
+  .slide2fa.mat-slide-toggle {
+      color:white;
+      font-weight: bold;
+  }
+
+  .slide2fa.mat-slide-toggle-thumb .mat-slide-toggle.mat-checked{
+      background-color: white!important;
+  }
+
+  .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: whitesmoke;
+  }
+
+  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #3ee4f0;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #3ee4f0;
+}

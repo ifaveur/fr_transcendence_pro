@@ -1,0 +1,57 @@
+@use '/src/styles.scss' as stl;
+
+fieldset {
+    text-align: center;
+    margin: 30px;
+    
+    border:2px solid stl.$dark-blue;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;	
+    border-radius:10px;
+    height: calc(100% - 77px);
+}
+
+legend {
+    font-size: large;
+    border:2px solid stl.$dark-blue;
+    border-radius:10px;
+    padding: 10px;
+    background-color: stl.$dark-blue;
+    font-weight: bold;
+    
+}
+
+.listContent {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    height: 100%;
+}
+
+.waitinglist, .progresslist {
+    flex: 1;
+    height: 100%;
+}
+
+.game {
+    height: 110px;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    transition: background-color 500ms ease-out;
+
+}
+
+.game:hover {
+    background-color: #a5a5a7;
+    color: #03042b;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.subContent {
+    overflow: auto;
+    height: 100%;
+}

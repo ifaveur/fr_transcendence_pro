@@ -1,0 +1,32 @@
+<div class="contentprofile">
+    <div class="userinfo">
+        <div class="username" id="username">{{user.name}}</div>
+        <div class="center"><app-avatar [user]="user" [socket]="socket"></app-avatar>
+        <div class="upload-button" ><app-upload-pic [socket]="socket"></app-upload-pic></div></div>
+        <div class="margin">
+            <app-change-name class="size-change-name" [socket]="socket" [user]="user"></app-change-name>
+        </div>
+        <div class="foot">
+            <app-set2fa class="column2"></app-set2fa>
+        </div>
+    </div>
+    <div class="userstat">
+
+        <app-statselector
+        [iduser] = user?.id
+        [user] = user
+        [socket] = socket
+        [friendListid] = "friendListid"
+        [blackListid] = "blackListid"
+
+        (onAddFriend) = addFriend($event)
+        (onRemoveFriend) = removeFriend($event)
+        (onBlockUser) = blockUser($event)
+        (onUnBlockUser) = unBlockUser($event)
+        (onInviteUser) = inviteUser($event)
+        (ongoToProfilePage) = goToProfilePage($event)>
+            
+        </app-statselector>
+    </div>
+</div>
+

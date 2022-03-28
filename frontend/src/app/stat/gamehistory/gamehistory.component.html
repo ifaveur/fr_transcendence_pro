@@ -1,0 +1,88 @@
+<div class="historyContent">
+    <div *ngFor="let game of history" class="gameline neon">
+        <div class="userdiv leftuser" *ngIf="game[0]">
+            <div class="lefticon">
+                <app-icone-avatar-history pic={{game[0].path}}
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{infouser: game[0]}"
+                >
+                </app-icone-avatar-history>
+            </div>
+            <div class="info">
+                {{game[0].user}}
+                <br>
+                lv {{game[0].lv}}
+            </div>
+            <div class="info leftscore">
+                {{game[0].score}}
+            </div>
+            
+
+        </div>
+        <div class="middlediv">
+            <mat-icon>games</mat-icon>
+            <br>
+            {{game[0].gamemode}}
+            <br>
+			{{getGameOption(game[0].option)}}
+        </div>
+        <div class="userdiv rightuser" *ngIf="game[1]">
+            <div class="righticon">
+                <app-icone-avatar-history pic={{game[1].path}}
+                    [matMenuTriggerFor]="testsubuser"
+                    [matMenuTriggerData]="{infouser: game[1]}"
+                >
+                </app-icone-avatar-history>
+            </div>
+            <div class="info">
+                {{game[1].user}}
+                <br>
+                lv {{game[1].lv}}
+            </div>
+
+			<div class="info rightscore">
+				{{game[1].score}}
+			</div>
+
+		</div>
+
+	</div>
+
+	<mat-menu #testsubuser="matMenu" xPosition="before">
+		<ng-template matMenuContent let-infouser="infouser">
+			<mat-list>
+				<mat-list-item>
+					<app-icone-avatar-chat   pic={{infouser.path}}></app-icone-avatar-chat>
+					<span>{{infouser.user}}</span>
+				</mat-list-item>
+			</mat-list>
+			<div *ngIf="infouser.iduser != iduser">
+			   <button mat-menu-item (click)="addFriend(infouser.iduser)" *ngIf="friendListid.indexOf(infouser.iduser!) == -1 && blackListid.indexOf(infouser.iduser!) == -1">
+				  <mat-icon>add</mat-icon>
+				  <span>Add friend</span>
+				</button>
+				<button mat-menu-item (click)="removeFriend(infouser.iduser)" *ngIf="friendListid.indexOf(infouser.iduser!) > -1">
+					<mat-icon>remove</mat-icon>
+					<span>remove friend</span>
+				</button>
+				<button mat-menu-item (click)="blockUser(infouser.iduser)" *ngIf="blackListid.indexOf(infouser.iduser!) == -1">
+				  <mat-icon>block</mat-icon>
+				  <span>Block user</span>
+				</button>
+				<button mat-menu-item (click)="unBlockUser(infouser.iduser)" *ngIf="blackListid.indexOf(infouser.iduser!) > -1">
+					<mat-icon>motorcycle</mat-icon>
+					<span>Unblock user</span>
+				</button>
+				<button mat-menu-item (click)="inviteUser(infouser.iduser)" *ngIf="blackListid.indexOf(infouser.iduser!) == -1">
+					<mat-icon>games</mat-icon>
+					<span>Invit to play</span>
+				</button>
+				<button mat-menu-item (click)="goToProfilePage(infouser.iduser)" *ngIf="blackListid.indexOf(infouser.iduser!) == -1">
+					<mat-icon>local_pizza</mat-icon>
+					<span>Profile page</span>
+				</button>
+			</div>
+		</ng-template>
+	</mat-menu>
+
+</div>

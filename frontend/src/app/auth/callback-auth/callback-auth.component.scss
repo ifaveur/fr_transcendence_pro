@@ -1,0 +1,20 @@
+.center {
+	width: 200px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.mat-spinner {
+	::ng-deep circle {
+		stroke : rgb(255, 255, 255);
+	}
+}
+
+
+.all {
+	height: 100%;
+	width: 100%;
+	
+    position: absolute;
+}

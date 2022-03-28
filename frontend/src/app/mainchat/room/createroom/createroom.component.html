@@ -1,0 +1,54 @@
+<div class="background">
+    <div class="popup">
+        <button mat-icon-button (click)="close()" class="close" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>
+        <fieldset class="neon">
+            <legend>
+                Create new room
+            </legend>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <mat-form-field class="full-witdh  lato-font" color="primary">
+                    <mat-label>
+                        name
+                    </mat-label>
+                    <input matInput type="text" name="name" formControlName="name">
+                </mat-form-field>
+                <br>
+                
+                <label>private room : </label> 
+                <mat-checkbox
+                    (change)="setPrivate()"
+                    formControlName="isprivate"
+                    color="accent"
+                    class="checkboxcreateroom  lato-font"
+                >
+                    yes
+                </mat-checkbox>
+                <br>
+                <label>locked room : </label> 
+                <mat-checkbox
+                   
+                    (change)="setLocked()"
+                    formControlName="islocked"
+                    color="accent"
+                    class="checkboxcreateroom lato-font"
+                >
+                    yes
+                </mat-checkbox>
+                <br>
+                <mat-form-field *ngIf="form.value.islocked" class="full-witdh lato-font" color="primary">
+                    <mat-label>
+                        password : 
+                    </mat-label>
+                    <input matInput type="text" name="password"  maxlength="13" formControlName="password">
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="accent" class="lato-font">Submit</button>
+
+            </form>
+        
+        </fieldset>
+
+    </div>
+</div>

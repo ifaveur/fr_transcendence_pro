@@ -1,0 +1,49 @@
+<mat-tab-group mat-align-tabs="start"
+	(selectedIndexChange)="changeSelectedTab($event)">
+	<mat-tab label="My statistics">
+		<div class="tabcontent" *ngIf="selectedTab === 0">
+			<app-statgraph1
+				[user] = user
+				[iduser] = iduser
+				[socket] = socket
+				[dispayid] = dispayid
+			>
+
+			</app-statgraph1>
+		</div>
+	</mat-tab>
+	<mat-tab label="Ranking">
+		<div class="tabcontent" *ngIf="selectedTab === 1">
+			<app-statgraph2
+				[user] = user
+				[iduser] = iduser
+				[socket] = socket
+				[dispayid] = dispayid
+			>
+
+			</app-statgraph2>
+		</div>
+	</mat-tab>
+	<mat-tab label="History">
+		<div class="tabcontent" *ngIf="selectedTab === 2">
+			<app-gamehistory
+				[user] = user
+				[iduser] = iduser
+				[socket] = socket
+				[dispayid] = dispayid
+				[friendListid] = "friendListid"
+				[blackListid] = "blackListid"
+
+				(onAddFriend) = addFriend($event)
+				(onRemoveFriend) = removeFriend($event)
+				(onBlockUser) = blockUser($event)
+				(onUnBlockUser) = unBlockUser($event)
+				(onInviteUser) = inviteUser($event)
+				(ongoToProfilePage) = goToProfilePage($event)
+			>
+
+			</app-gamehistory>
+		</div>
+	</mat-tab>
+
+</mat-tab-group>

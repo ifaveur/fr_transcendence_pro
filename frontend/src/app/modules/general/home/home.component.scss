@@ -1,0 +1,82 @@
+
+@use '/src/styles.scss' as stl;
+
+.content {
+    flex-grow: 1;
+    margin: 2%;
+    height: 100%;
+    
+    display: flex;
+
+}
+
+.maindiv {
+    height: 500px;
+    background-color: stl.$ligth-background;
+    width: 70%;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chat {
+    width: 50%;
+    height: 500px;
+    background-color: stl.$ligth-background;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    
+
+}
+
+.mat-menu-item {
+    display: flex;
+}
+
+.upContent {
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.397);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    
+    top: 0;
+    left: 0;
+}
+
+.background {
+    
+    
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+}
+
+.bottom-right {
+    position: fixed;
+    margin: 20px;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.tooltip {
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 10px;
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+

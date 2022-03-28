@@ -1,0 +1,67 @@
+<div class="chatbody">
+    <div class="up">
+        <app-roomlist *ngIf="popup == 1"
+            [iduser] = iduser
+            [socket] = socket
+            (closePopup)="closeAction($event)"
+        >
+        </app-roomlist>
+        <app-createroom *ngIf="popup == 2"
+            [iduser] = iduser
+            [socket] = socket
+            (closePopup)="closeAction($event)"
+        ></app-createroom>
+    </div>
+    <div class="chatContent">
+        <div class="list">
+            <div class="roomlistheader">
+                <button mat-raised-button color="accent" (click)="CreateRoom()" class="rommheader">
+                    New
+                </button>
+                <button mat-raised-button color="accent" (click)="JoinRoom()" class="rommheader">
+                    join
+                </button>
+            </div>
+            <div class="roomdivcontent">
+    
+                <div *ngIf="roomList" class="roomdiv">
+                    <div *ngFor="let room of roomList">
+                        <div (click)="onChangeRoom(room.id)" class="roomname" id="{{room.id}}">
+                            {{room.name}}
+                                <mat-icon (click)="leaveRoom(room.id); $event.stopPropagation();" class="righticon leaveroombtn" color="warn">clear</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat">
+            <div *ngIf="selectroom" class="insertroom">
+                <app-chat
+                    [iduser] = iduser
+                    [user] = user
+                    [idchat] = selectroom.id
+                    [namechat] = selectroom.name
+                    [socket] = socket
+                    [room] = selectroom
+
+                    [friendList] = "friendList"
+                    [friendListid] = "friendListid"
+                    [blackList] = "blackList"
+                    [blackListid] = "blackListid"
+                    [messages] = "roomMsgList"
+
+                    (onAddFriend) = addFriend($event)
+                    (onRemoveFriend) = removeFriend($event)
+                    (onBlockUser) = blockUser($event)
+                    (onUnBlockUser) = unBlockUser($event)
+                    (onInviteUser) = inviteUser($event)
+                    (ongoToProfilePage) = goToProfilePage($event)
+                >
+                </app-chat>
+            </div>
+            <div *ngIf="!selectroom" class="placeholderroom">
+                No selected room
+            </div>
+        </div>
+    </div>
+</div>

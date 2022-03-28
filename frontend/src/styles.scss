@@ -1,0 +1,546 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "@angular/material/prebuilt-themes/indigo-pink.css";
+// @import '~@angular/material/theming';
+// @include mat-core();
+
+// $custom-primary: mat-palette($mat-grey, );
+// $custon-accent: mat-palette($mat-blue);
+// $custom-warn: mat-palette($mat-red);
+// $custom-theme: mat-dark-theme($custom-primary, $custon-accent, $custom-warn);
+
+// @include angular-material-theme($custom-theme);
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+@import url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+
+
+/**
+* Generated theme by Material Theme Generator
+* https://materialtheme.arcsine.dev
+* Fork at: https://materialtheme.arcsine.dev/?c=YHBhbGV0dGU$YHByaW1hcnk$YF48IzE0MTExNCIsIj9lcjwjYjliOGI5IiwiO2VyPCMwYjBhMGJ$LCIlPmBePCMwMzA0MmIiLCI~ZXI8I2IzYjRiZiIsIjtlcjwjMDIwMjFhfiwid2Fybj5gXjwjZmYwMDAwIiwiP2VyPCNmZmIzYjMiLCI7ZXI8I2ZmMDAwMH4sIj9UZXh0PCMwMDAwMDAiLCI~PTwjNGQxNjE2IiwiO1RleHQ8I2ZmZmZmZiIsIjs9PCMyNzI2MjZ$LCJmb250cz5bYEA8KC00fixgQDwoLTN$LGBAPCgtMn4sYEA8KC0xfixgQDxoZWFkbGluZX4sYEA8dGl0bGV$LGBAPHN1YiktMn4sYEA8c3ViKS0xfixgQDxib2R5LTJ$LGBAPGJvZHktMX4sYEA8YnV0dG9ufixgQDxjYXB0aW9ufixgQDxpbnB1dCIsInNpemU$bnVsbH1dLCJpY29uczxGaWxsZWQiLCI~bmVzcz5mYWxzZSwidmVyc2lvbj4xMX0=
+*/
+
+@import '~@angular/material/theming';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+
+// Fonts
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+		 
+$fontConfig: (
+	display-4: mat-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
+	display-3: mat-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
+	display-2: mat-typography-level(45px, 48px, 400, 'Roboto', 0.0000em),
+	display-1: mat-typography-level(34px, 40px, 400, 'Roboto', 0.0074em),
+	headline: mat-typography-level(24px, 32px, 400, 'Roboto', 0.0000em),
+	title: mat-typography-level(20px, 32px, 500, 'Roboto', 0.0075em),
+	subheading-2: mat-typography-level(16px, 28px, 400, 'Roboto', 0.0094em),
+	subheading-1: mat-typography-level(15px, 24px, 500, 'Roboto', 0.0067em),
+	body-2: mat-typography-level(14px, 24px, 500, 'Roboto', 0.0179em),
+	body-1: mat-typography-level(14px, 20px, 400, 'Roboto', 0.0179em),
+	button: mat-typography-level(14px, 14px, 500, 'Roboto', 0.0893em),
+	caption: mat-typography-level(12px, 20px, 400, 'Roboto', 0.0333em),
+	input: mat-typography-level(inherit, 1.125, 400, 'Roboto', 1.5px)
+);
+
+// Foreground Elements
+
+// Light Theme Text
+$dark-text: #000000;
+$dark-primary-text: rgba($dark-text, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
+$dark-disabled-text: rgba($dark-primary-text, 0.38);
+$dark-dividers: rgba($dark-primary-text, 0.12);
+$dark-focused: rgba($dark-primary-text, 0.12);
+
+$mat-light-theme-foreground: (
+	base:              black,
+	divider:           $dark-dividers,
+	dividers:          $dark-dividers,
+	disabled:          $dark-disabled-text,
+	disabled-button:   rgba($dark-text, 0.26),
+	disabled-text:     $dark-disabled-text,
+	elevation:         black,
+	secondary-text:    $dark-accent-text,
+	hint-text:         $dark-disabled-text,
+	accent-text:       $dark-accent-text,
+	icon:              $dark-accent-text,
+	icons:             $dark-accent-text,
+	text:              $dark-primary-text,
+	slider-min:        $dark-primary-text,
+	slider-off:        rgba($dark-text, 0.26),
+	slider-off-active: $dark-disabled-text,
+);
+
+// Dark Theme text
+$light-text: #ffffff;
+$light-primary-text: $light-text;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+
+$mat-dark-theme-foreground: (
+	base:              $light-text,
+	divider:           $light-dividers,
+	dividers:          $light-dividers,
+	disabled:          $light-disabled-text,
+	disabled-button:   rgba($light-text, 0.3),
+	disabled-text:     $light-disabled-text,
+	elevation:         black,
+	hint-text:         $light-disabled-text,
+	secondary-text:    $light-accent-text,
+	accent-text:       $light-accent-text,
+	icon:              $light-text,
+	icons:             $light-text,
+	text:              $light-text,
+	slider-min:        $light-text,
+	slider-off:        rgba($light-text, 0.3),
+	slider-off-active: rgba($light-text, 0.3),
+);
+
+// Background config
+// Light bg
+$light-background:    #4d1616;
+$light-bg-darker-5:   darken($light-background, 5%);
+$light-bg-darker-10:  darken($light-background, 10%);
+$light-bg-darker-20:  darken($light-background, 20%);
+$light-bg-darker-30:  darken($light-background, 30%);
+$light-bg-lighter-5:  lighten($light-background, 5%);
+$dark-bg-tooltip:     lighten(#272626, 20%);
+$dark-bg-alpha-4:     rgba(#272626, 0.04);
+$dark-bg-alpha-12:    rgba(#272626, 0.12);
+
+$mat-light-theme-background: (
+	background:               $light-background,
+	status-bar:               $light-bg-darker-20,
+	app-bar:                  $light-bg-darker-5,
+	hover:                    $dark-bg-alpha-4,
+	card:                     $light-bg-lighter-5,
+	dialog:                   $light-bg-lighter-5,
+	tooltip:                  $dark-bg-tooltip,
+	disabled-button:          $dark-bg-alpha-12,
+	raised-button:            $light-bg-lighter-5,
+	focused-button:           $dark-focused,
+	selected-button:          $light-bg-darker-20,
+	selected-disabled-button: $light-bg-darker-30,
+	disabled-button-toggle:   $light-bg-darker-10,
+	unselected-chip:          $light-bg-darker-10,
+	disabled-list-option:     $light-bg-darker-10,
+);
+
+// Dark bg
+$dark-background:     #272626;
+$dark-bg-lighter-5:   lighten($dark-background, 5%);
+$dark-bg-lighter-10:  lighten($dark-background, 10%);
+$dark-bg-lighter-20:  lighten($dark-background, 20%);
+$dark-bg-lighter-30:  lighten($dark-background, 30%);
+$light-bg-alpha-4:    rgba(#4d1616, 0.04);
+$light-bg-alpha-12:   rgba(#4d1616, 0.12);
+
+// Background palette for dark themes.
+$mat-dark-theme-background: (
+	background:               $dark-background,
+	status-bar:               $dark-bg-lighter-20,
+	app-bar:                  $dark-bg-lighter-5,
+	hover:                    $light-bg-alpha-4,
+	card:                     $dark-bg-lighter-5,
+	dialog:                   $dark-bg-lighter-5,
+	tooltip:                  $dark-bg-lighter-20,
+	disabled-button:          $light-bg-alpha-12,
+	raised-button:            $dark-bg-lighter-5,
+	focused-button:           $light-focused,
+	selected-button:          $dark-bg-lighter-20,
+	selected-disabled-button: $dark-bg-lighter-30,
+	disabled-button-toggle:   $dark-bg-lighter-10,
+	unselected-chip:          $dark-bg-lighter-20,
+	disabled-list-option:     $dark-bg-lighter-10,
+);
+
+// Compute font config
+@include mat-core($fontConfig);
+
+// Theme Config
+
+body {
+	--primary-color: #141114;
+	--primary-lighter-color: #b9b8b9;
+	--primary-darker-color: #0b0a0b;
+	--text-primary-color: #{$light-primary-text};
+	--text-primary-lighter-color: #{$dark-primary-text};
+	--text-primary-darker-color: #{$light-primary-text};
+}   
+$mat-primary: (
+	main: #141114,
+	lighter: #b9b8b9,
+	darker: #0b0a0b,
+	200: #141114, // For slide toggle,
+	contrast : (
+		main: $light-primary-text,
+		lighter: $dark-primary-text,
+		darker: $light-primary-text,
+	)
+);
+$theme-primary: mat-palette($mat-primary, main, lighter, darker);
+
+
+body {
+	--accent-color: #03042b;
+	--accent-lighter-color: #b3b4bf;
+	--accent-darker-color: #02021a;
+	--text-accent-color: #{$light-primary-text};
+	--text-accent-lighter-color: #{$dark-primary-text};
+	--text-accent-darker-color: #{$light-primary-text};
+}   
+$mat-accent: (
+	main: #03042b,
+	lighter: #b3b4bf,
+	darker: #02021a,
+	200: #03042b, // For slide toggle,
+	contrast : (
+		main: $light-primary-text,
+		lighter: $dark-primary-text,
+		darker: $light-primary-text,
+	)
+);
+$theme-accent: mat-palette($mat-accent, main, lighter, darker);
+
+
+body {
+	--warn-color: #ff0000;
+	--warn-lighter-color: #ffb3b3;
+	--warn-darker-color: #ff0000;
+	--text-warn-color: #{$light-primary-text};
+	--text-warn-lighter-color: #{$dark-primary-text};
+	--text-warn-darker-color: #{$light-primary-text};
+}   
+$mat-warn: (
+	main: #ff0000,
+	lighter: #ffb3b3,
+	darker: #ff0000,
+	200: #ff0000, // For slide toggle,
+	contrast : (
+		main: $light-primary-text,
+		lighter: $dark-primary-text,
+		darker: $light-primary-text,
+	)
+);
+$theme-warn: mat-palette($mat-warn, main, lighter, darker);
+;
+
+$theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
+$altTheme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
+
+// Theme Init
+@include angular-material-theme($theme);
+
+.theme-alternate {
+	@include angular-material-theme($altTheme);
+}
+
+// Specific component overrides, pieces that are not in line with the general theming
+
+// Handle buttons appropriately, with respect to line-height
+
+$custom-typography: mat-typography-config(
+	$font-family: '"Press Start 2P"'
+);
+@include angular-material-typography($custom-typography);
+
+
+$mybackground-color: #080c14;
+
+body {
+    border: none !important;
+    margin: 0px !important;
+    padding: 0 !important;
+    font-family: 'Press Start 2P', cursive !important;
+}
+
+body {
+		background-color: $mybackground-color;
+}
+
+::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+}
+
+::-webkit-scrollbar-track {
+		background: rgba($color: #141114, $alpha: 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+		border-radius: 20px;
+		background-color: #b3b4bf;
+}
+
+
+.mat-raised-button, .mat-stroked-button, .mat-flat-button {
+	padding: 0 1.15em;
+	margin: 0 .65em;
+	min-width: 3em;
+	line-height: 36.4px
+}
+
+.mat-standard-chip {
+	padding: .5em .85em;
+	min-height: 2.5em;
+}
+
+.material-icons {
+	font-size: 24px;
+	font-family: 'Material Icons', 'Material Icons';  
+	.mat-badge-content {
+		font-family: 'Roboto';
+	}
+}
+
+.red-snackbar {
+		color: white;
+		background-color: rgb(156, 11, 11);
+}
+
+
+
+.green-snackbar {
+	color: black;
+	background-color: rgb(4, 226, 97);
+}
+
+$dark-blue: #03042b;
+$ligth-background: #141620f0;
+
+.offlinebadge {
+	.mat-badge-content {
+		background: red;
+		color: red;
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.onlinebadge {
+	.mat-badge-content {
+		background: lime;
+		color: lime;
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.spectatorbadge {
+	.mat-badge-content {
+		background: rgb(247, 0, 255);
+		color: rgb(247, 0, 255);
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.gamestartpagebadge {
+	.mat-badge-content {
+		background: rgb(0, 255, 242);
+		color: rgb(0, 255, 242);
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.ingamebadge {
+	.mat-badge-content {
+		background: rgb(255, 123, 0);
+		color: rgb(255, 123, 0);
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.matchmakingbadge {
+	.mat-badge-content {
+		background: rgb(73, 7, 104);
+		color: rgb(73, 7, 104);
+		width: 10px;
+		height: 10px;
+		line-height: 10px;
+		top: 26px;
+	}
+}
+
+.mat-badge-small.mat-badge-overlap.mat-badge-before .mat-badge-content {
+  left: -5px;
+}
+
+
+.mat-tab-group{
+    height: 100%;
+}
+.mat-tab-body-wrapper {
+    flex-grow: 1;
+}
+
+.mat-tab-body {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.mat-tab-body-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.overflow-hiden {
+    overflow: hidden;
+	.mat-tab-body-content {
+		overflow: hidden;
+	}
+	
+}
+
+
+$color1: rgba(#E6B0AA ,0.5);
+$color2: rgba(#D98880 ,0.5);
+$color3: rgba(#CD6155 ,0.5);
+$color4: rgba(#C0392B ,0.5);
+$color5: rgba(#A93226 ,0.5);
+$color6: rgba(#922B21 ,0.5) ;
+
+$rainbow: colorRotate 300ms linear  0s infinite;
+$rainbowbackneon: colorRotate 5s linear  0s infinite;
+$rainbowborderneon: borderColorRotate 5s linear  0s infinite;
+$rainbowtextneon: textColorRotate 5s linear  0s infinite;
+$rainbowtextshadowneon: textShadowColorRotate 5s linear  0s infinite;
+$rainbowneon: ShadowRotate 5s linear  0s infinite;
+
+@keyframes colorRotate {
+    from	{ background-color: $color1; }
+    // 15%		{ background-color: $color2; }
+    // 30%		{ background-color: $color3; }
+    // 45%		{ background-color: $color4; }
+    // 60%		{ background-color: $color5; }
+    50%		{ background-color: $color6; }
+    100%	{ background-color: $color1; }
+}
+
+@keyframes borderColorRotate {
+    from	{ border-color: $color1; }
+    // 15%		{ border-color: $color2; }
+    // 30%		{ border-color: $color3; }
+    // 45%		{ border-color: $color4; }
+    // 60%		{ border-color: $color5; }
+    50%		{ border-color: $color6; }
+    100%	{ border-color: $color1; }
+}
+
+@keyframes textColorRotate {
+    from	{ color: $color1; }
+    // 15%		{ color: $color2; }
+    // 30%		{ color: $color3; }
+    // 45%		{ color: $color4; }
+    // 60%		{ color: $color5; }
+    50%		{ color: $color6; }
+    100%	{ color: $color1; }
+}
+
+@keyframes textShadowColorRotate {
+    from	{  text-shadow: 0 0 10px $color1; }
+    // 15%		{  text-shadow: 0 0 10px $color2; }
+    // 30%		{  text-shadow: 0 0 10px $color3; }
+    // 45%		{  text-shadow: 0 0 10px $color4; }
+    // 60%		{  text-shadow: 0 0 10px $color5; }
+    50%		{  text-shadow: 0 0 10px $color6; }
+    100%	{  text-shadow: 0 0 10px $color1; }
+}
+
+$neon-color: #0851d8;
+
+.shadow {
+	box-shadow: 0px 0px 2px 2px rgb(0 0 0 / 20%);
+}
+
+
+.neon {
+	animation: $rainbowneon, $rainbowborderneon ;
+}
+
+@function box-shadow-color1($col) { @return (0 0 10px $col, 0 0 10px $col inset); }
+@function box-shadow-color2($col) { @return (0 0 10px $col, 0 0 10px $col inset); }
+@function box-shadow-color3($col) { @return (0 0 10px $col, 0 0 10px $col inset); }
+
+@keyframes ShadowRotate {
+
+    from {
+		box-shadow: box-shadow-color1($color1);
+		-webkit-box-shadow: box-shadow-color2($color1);
+		-moz-box-shadow: box-shadow-color3($color1);
+    }
+    // 15% {
+	// 	box-shadow: box-shadow-color1($color2);
+	// 	-webkit-box-shadow: box-shadow-color2($color2);
+	// 	-moz-box-shadow: box-shadow-color3($color2);
+    // }
+    // 30% {
+	// 	box-shadow: box-shadow-color1($color3);
+	// 	-webkit-box-shadow: box-shadow-color2($color3);
+	// 	-moz-box-shadow: box-shadow-color3($color3);
+    // }
+    // 45% {
+	// 	box-shadow: box-shadow-color1($color4);
+	// 	-webkit-box-shadow: box-shadow-color2($color4);
+	// 	-moz-box-shadow: box-shadow-color3($color4);
+    // }
+    // 60% {
+	// 	box-shadow: box-shadow-color1($color5);
+	// 	-webkit-box-shadow: box-shadow-color2($color5);
+	// 	-moz-box-shadow: box-shadow-color3($color5);
+    // }
+    50% {
+		box-shadow: box-shadow-color1($color6);
+		-webkit-box-shadow: box-shadow-color2($color6);
+		-moz-box-shadow: box-shadow-color3($color6); 
+    }
+    100% {
+		box-shadow: box-shadow-color1($color1);
+		-webkit-box-shadow: box-shadow-color2($color1);
+		-moz-box-shadow: box-shadow-color3($color1);
+    }
+}
+
+
+.ErrorDialog {
+    mat-dialog-container {
+        background-color: rgba(0, 0, 0, 0.514);
+		color: white;
+		text-align: center;
+		font-family: sans-serif;
+    }
+
+	.mat-dialog-title {
+		margin-bottom: 0;
+	}
+}
+
+.CenterDialog {
+	mat-dialog-container {
+		text-align: center;
+		line-height: 45px;
+    }
+}
+
+.lato-font {
+	font-family: "lato";
+}

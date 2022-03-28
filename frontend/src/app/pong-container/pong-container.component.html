@@ -1,0 +1,23 @@
+<div class="content">
+    <div class="pong">
+        <app-pong
+            [socket] = "socket"
+            [user] = "user"
+            [gameid] = "gameid"
+            [inviteUser] = "inviteUser"
+        ></app-pong>
+    </div>
+    
+    <div class="gamechat" *ngIf="chatid">
+        <app-game-chat
+            [socket] = "socket"
+            [user] = "user"
+            [chatid] = "chatid"
+            [msgList] = "msgList"
+            [friendListid] = "friendListid"
+            [blackListid] = "blackListid"
+        >
+
+        </app-game-chat>
+    </div>
+</div>

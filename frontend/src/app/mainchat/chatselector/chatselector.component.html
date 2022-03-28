@@ -1,0 +1,63 @@
+<div class="content ">
+    <button mat-icon-button (click)="close()" class="close" color="warn">
+		<mat-icon>close</mat-icon>
+	</button>
+
+    <mat-tab-group mat-align-tabs="start"
+        (click)="switch()" 
+        [selectedIndex]="selected.value"
+        (selectedIndexChange)="selected.setValue($event)" 
+    >
+        <mat-tab label="Global chat" class="overflow-hiden">
+            <div class="tabcontent">
+
+                <app-room
+                    [iduser] = iduser
+                    [socket] = socket
+                    [user] = user
+                    [friendList] = "friendList"
+                    [friendListid] = "friendListid"
+                    [blackList] = "blackList"
+                    [blackListid] = "blackListid"
+                    [oldChat] = "oldChat"
+    
+                    (onAddFriend) = addFriend($event)
+                    (onRemoveFriend) = removeFriend($event)
+                    (onBlockUser) = blockUser($event)
+                    (onUnBlockUser) = unBlockUser($event)
+                    (onInviteUser) = inviteUser($event)
+                    (ongoToProfilePage) = goToProfilePage($event)
+                    (onSelectChat) = selectChat($event)
+                >
+    
+                </app-room>
+            </div>
+        </mat-tab>
+        <mat-tab label="Private message" class="overflow-hiden">
+            <div class="tabcontent">
+                <app-mp
+                    [iduser] = iduser
+                    [socket] = socket
+                    [user] = user
+                    [friendList] = "friendList"
+                    [friendListid] = "friendListid"
+                    [blackList] = "blackList"
+                    [blackListid] = "blackListid"
+                    [onlineList] = "onlineList"
+                    [oldMp] = "oldMp"
+    
+                    (onAddFriend) = addFriend($event)
+                    (onRemoveFriend) = removeFriend($event)
+                    (onBlockUser) = blockUser($event)
+                    (onUnBlockUser) = unBlockUser($event)
+                    (onInviteUser) = inviteUser($event)
+                    (ongoToProfilePage) = goToProfilePage($event)
+                    (onSelectMp) = selectMp($event)
+                >
+
+                </app-mp>
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+      
+</div>

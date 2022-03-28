@@ -1,0 +1,49 @@
+<div class="listContent">
+    <div class="waitinglist">
+        <fieldset class="neon">
+            <legend>
+                waiting game
+            </legend>
+            <div class="subContent">
+                <div *ngFor="let game of waintingList" class="game" (click)="joinGame(game.id)">
+					<app-icone-avatar-history pic={{game.path}}></app-icone-avatar-history>
+                    <div class="info">
+                        {{game.name}}
+                        <br>
+                        {{game.gamemode}}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="progresslist">
+        <fieldset class="neon">
+            <legend>
+                game in progress
+            </legend>
+            <div class="subContent">
+                <div *ngFor="let game of progressList" class="game" (click)="joinGame(game[0].id)">
+                    <div class="user1">
+                        <app-icone-avatar-history pic={{game[0].path}}></app-icone-avatar-history>
+                        <div class="info">
+                            {{game[0].name}}
+                        </div>
+
+                    </div>
+                    <div class="info">
+
+                        {{game[0].gamemode}}
+                    </div>
+                    <div class="user2">
+                        <app-icone-avatar-history pic={{game[1].path}}></app-icone-avatar-history>
+                        <div class="info">
+                            {{game[1].name}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+    </div>
+</div>

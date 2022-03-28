@@ -1,0 +1,120 @@
+<div class="background">
+	<app-backgroundneon>
+	
+	</app-backgroundneon>
+</div>
+<div *ngIf="state != 0">
+	<app-navbar class="navbar"
+		[iduser] = iduser
+		[user] = user
+		[socket] = socket
+		[friendList] = "friendList"
+		[friendListid] = "friendListid"
+		[blackList] = "blackList"
+		[blackListid] = "blackListid"
+		[onlineList] = "onlineList"
+		[state] = state
+	
+		(onAddFriend) = addFriend($event)
+		(onRemoveFriend) = removeFriend($event)
+		(onBlockUser) = blockUser($event)
+		(onUnBlockUser) = unBlockUser($event)
+		(onInviteUser) = inviteUser($event)
+		(ongoToProfilePage) = goToProfilePage($event)
+		(onNav)="onNav($event)"
+		(onDisplayChat)="onDisplayChat($event)"
+	>
+	
+	</app-navbar>
+</div>
+
+<div *ngIf="state === 1 && ready === 1" class="content" >
+	<div class="maindiv" >
+		<app-homegamelist
+			[socket] = "socket"
+			[user] = "user"
+		>
+
+		</app-homegamelist>
+	</div>
+</div>
+
+<div *ngIf="state == 3  && ready === 1" >
+	<app-pong-container
+		[socket] = "socket"
+		[user] = "user"
+		[friendListid] = "friendListid"
+		[blackListid] = "blackListid"
+	></app-pong-container>
+</div>
+
+<div *ngIf="state == 4  && ready === 1" >
+	<app-myprofil  [user]="user" [socket]="socket"
+		[friendListid] = "friendListid"
+		[blackListid] = "blackListid"
+
+		(onAddFriend) = addFriend($event)
+		(onRemoveFriend) = removeFriend($event)
+		(onBlockUser) = blockUser($event)
+		(onUnBlockUser) = unBlockUser($event)
+		(onInviteUser) = inviteUser($event)
+		(ongoToProfilePage) = goToProfilePage($event)>
+</app-myprofil>
+</div>
+
+<div *ngIf="state == 5  && ready === 1" >
+	<app-leaderboard
+		[socket] = "socket">
+	</app-leaderboard>
+</div>
+
+<div *ngIf="state == 2  && ready === 1" >
+	<app-profilepage
+		[user]="user" [socket]="socket"
+		[friendListid] = "friendListid"
+		[blackListid] = "blackListid"
+
+		(onAddFriend) = addFriend($event)
+		(onRemoveFriend) = removeFriend($event)
+		(onBlockUser) = blockUser($event)
+		(onUnBlockUser) = unBlockUser($event)
+		(onInviteUser) = inviteUser($event)
+		(ongoToProfilePage) = goToProfilePage($event)
+	></app-profilepage>
+</div>
+
+<div *ngIf="displaychat" class="upContent">
+	<app-chatselector
+		[iduser] = iduser
+		[socket] = socket
+		[user] = user
+		[friendList] = "friendList"
+		[friendListid] = "friendListid"
+		[blackList] = "blackList"
+		[blackListid] = "blackListid"
+		[onlineList] = "onlineList"
+		[oldMp] = "oldMp"
+		[oldChat] = "oldChat"
+		[focus] = "focus"
+
+		(onAddFriend) = addFriend($event)
+		(onRemoveFriend) = removeFriend($event)
+		(onBlockUser) = blockUser($event)
+		(onUnBlockUser) = unBlockUser($event)
+		(onInviteUser) = inviteUser($event)
+		(ongoToProfilePage) = goToProfilePage($event)
+		(onCloseChat) = onCloseChat($event)
+		(onSelectMp) = selectMp($event)
+		(onSelectChat) = selectChat($event)
+		(onchangeFocus) = changeFocus($event)
+	>
+	</app-chatselector>
+</div>
+
+<button mat-fab class="bottom-right" (click)="onDisplayChat(1)"  *ngIf="state != 0 && ready === 1 ">
+	<mat-icon> 
+		chat
+	</mat-icon>
+</button>
+
+<div class="tooltip" id="tooltip">

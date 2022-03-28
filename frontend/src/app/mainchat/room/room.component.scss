@@ -1,0 +1,144 @@
+
+@use '/src/styles.scss' as stl;
+
+.roomdivcontent {
+    margin: 2px;
+    padding: 10px;
+    background-color:  stl.$dark-blue;
+    border-radius: 5px ;
+    height: calc(100% - 24px - 48px);
+    box-shadow: 0px 0px 2px 2px rgba($color: black, $alpha: 0.2);
+}
+
+.roomdiv {
+    height: 100%;
+    overflow-y: auto;    
+}
+
+
+.roomdiv::-webkit-scrollbar {
+    width: 5px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.roomdiv::-webkit-scrollbar-track {
+    background: rgba($color: #141114, $alpha: 0.5);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.roomdiv::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: #b3b4bf;
+}
+
+
+.list {
+    margin-left: 5px;
+    width: 150px;
+}
+
+.chat {
+    width: calc(100% - 155px);
+    padding: 5px;
+    margin: 2px;
+    height: calc(100% - 14px);
+}
+
+.chatContent {
+    display: flex;
+    z-index: 1;
+    height: 100%;
+}
+
+.roomname {
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    background-color: stl.$dark-blue;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 500ms;
+}
+
+.roomname:hover {
+    background-color: #050972 ;
+    border-radius: 5px;
+}
+
+.roomlistheader{
+    flex: 0 1 auto;
+    display: flex;
+    width: 100%;
+    height: 48px;
+}
+
+.rommheader {
+    flex: 1;
+    padding: 5px;
+    margin: 2px;
+}
+
+.up {
+    z-index: 2;
+}
+
+.leaveroombtn {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    border-radius: 20px;
+}
+
+.leaveroombtn:hover {
+    background-color: #5e05058c;
+    color: white;
+}
+
+.chatbody {
+    border-radius: 10px;
+    position: relative;
+    height: 100%;
+
+    font-family: "lato";
+    .mat-raised-button {
+        font-family: "lato";
+    }
+
+    .mat-form-field {
+        
+        font-family: "lato";
+    }
+}
+    
+
+.up {
+    font-family: "lato";
+    .mat-raised-button {
+        font-family: "lato";
+    }
+
+    .mat-form-field {
+        
+        font-family: "lato";
+    }
+}
+
+.insertroom {
+    height: 100%;
+}
+
+.placeholderroom {
+    text-align: center;
+    color: white;
+    font-size: x-large;
+    font-weight: bold;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

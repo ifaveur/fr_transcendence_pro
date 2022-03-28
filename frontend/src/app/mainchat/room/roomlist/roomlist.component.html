@@ -1,0 +1,49 @@
+<div class="background">
+    <div class="popup">
+        <button mat-icon-button (click)="close()" class="close" color="warn">
+            <mat-icon>close</mat-icon>
+        </button>
+        <div *ngIf="roomList" class="list">
+                <fieldset class="set neon">
+                    <legend class="legend">
+                        liste des chats disponibles
+                    </legend>
+                <div *ngFor="let room of roomList; let index = index">
+                    <div class="rommname"  id="{{room.id}}">
+                        <div id="error{{room.id}}">
+    
+                        </div>
+                        <div (click)="displaymore(index)" class="name">
+    
+                            {{room.name}}
+                        </div>
+                        
+                        <div class="passworddiv" >
+                            <div *ngIf="room.islocked">
+                                <mat-form-field class="full-witdh lato-font" >
+                                    <mat-label>
+                                        password
+                                    </mat-label>
+                                    <input matInput type="text" name="password" maxlength="13" [(ngModel)]="passwordList[index]">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="!room.islocked">
+                              
+                            </div>
+                            
+                        </div>
+                        <div class="submit">
+                            
+                            <button mat-raised-button (click)="joinroom(room, index)" color="accent" class="lato-font">
+                                Join Room
+                            </button>
+                        </div>
+                    </div>
+    
+                </div>
+                
+            </fieldset>
+        </div>
+
+    </div>
+</div>

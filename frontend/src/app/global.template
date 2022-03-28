@@ -1,0 +1,25 @@
+// import { Injectable } from "@angular/core";
+// import { io } from "socket.io-client";
+
+// export class GlobalVar {
+//     url : string = "http://localhost:3000";
+//     getChatList: string = this.url + "/chat";
+//     getMessageFromChat: string = this.url + "/chatMsg/";
+//     getme: string = this.url + "/users/me";
+//     getuserbyid: string = this.url + "/users/id/";
+// 	getuserchat: string = this.url + "/chatUser/chat/";
+//     getavailableuserchat: string = this.url + "/chatUser/chatAvailable/";
+//     addusertochat: string = this.url + "/chatUser";
+// }
+
+export enum status2FA {
+    NotActivate = "NotActivate",
+    ValidationPending = "ValidationPending",
+    Activate = "Activate",
+
+}
+
+export const env = {
+    back_domain_url : "REPLACE_DOMAIN",
+    auth: "REPLACE_AUTH_URL"
+}

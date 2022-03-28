@@ -1,0 +1,92 @@
+<div class="chattable  lato-font">
+	<div class="content">
+
+        
+		<div class="title">
+			{{selectedMp.user?.name}}
+            <button mat-icon-button
+                [matMenuTriggerFor]="testsubuser"
+                [matMenuTriggerData]="{userselect: selectedMp.user}"
+                class="righticon "
+            >
+                <app-icone-avatar-chat pic={{selectedMp.user?.image_url}}></app-icone-avatar-chat>
+            </button>
+		</div>
+
+        
+		<div class="chat" id="chatmp">
+			<div *ngFor="let msg of mpMsgList">
+				<div *ngIf="msg.iduser == iduser" class="msgme chatmsg">
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}} 
+					</div>
+				</div>
+		
+				<div *ngIf="msg.iduser != iduser && blackListid.indexOf(msg.iduser) == -1" class="msg chatmsg" >
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}}   
+					</div>
+				</div>
+				<div class="date" *ngIf="blackListid.indexOf(msg.iduser) == -1">
+					{{msg.date  | date:'short'}}
+				</div>
+			</div>
+		</div>
+        <div class="input msg-input">
+			<form #fmp="ngForm" (ngSubmit)="onSubmit(fmp)">
+				<mat-form-field class="full-witdh  lato-font" >
+					<mat-label>
+						message
+					</mat-label>
+					<input matInput type="text" name="message" maxlength="2000" [(ngModel)]="msginput" >
+					<button matSuffix mat-icon-button  >
+						<mat-icon color="accent">send</mat-icon>
+					</button>
+				</mat-form-field>
+	
+			</form>
+		</div>
+	</div>
+</div>
+<mat-menu #testsubuser="matMenu" xPosition="before">
+    <ng-template matMenuContent let-userselect="userselect">
+        <mat-list>
+            <mat-list-item class=" lato-font">
+                <app-icone-avatar-chat   pic={{userselect.image_url}}></app-icone-avatar-chat>
+                <span>{{userselect.name}}</span>
+            </mat-list-item>
+        </mat-list>
+        <div *ngIf="userselect.id != iduser">
+            <button mat-menu-item (click)="addFriend(userselect.id)" *ngIf="friendListid.indexOf(userselect.id!) == -1 && blackListid.indexOf(userselect.id!) == -1" class=" lato-font">
+              <mat-icon>add</mat-icon>
+              <span>Add friend</span>
+            </button>
+            <button mat-menu-item (click)="removeFriend(userselect.id)" *ngIf="friendListid.indexOf(userselect.id!) > -1" class=" lato-font">
+                <mat-icon>remove</mat-icon>
+                <span>remove friend</span>
+            </button>
+            <button mat-menu-item (click)="blockUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1" class=" lato-font">
+              <mat-icon>block</mat-icon>
+              <span>Block user</span>
+            </button>
+            <button mat-menu-item (click)="unBlockUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) > -1" class=" lato-font">
+                <mat-icon>motorcycle</mat-icon>
+                <span>Unblock user</span>
+            </button>
+            <button mat-menu-item (click)="inviteUser(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1" class=" lato-font">
+                <mat-icon>games</mat-icon>
+                <span>Invit to play</span>
+            </button>
+            <button mat-menu-item (click)="goToProfilePage(userselect.id)" *ngIf="blackListid.indexOf(userselect.id!) == -1" class=" lato-font">
+                <mat-icon>local_pizza</mat-icon>
+                <span>Profile page</span>
+            </button>
+        </div>
+    </ng-template>
+</mat-menu>

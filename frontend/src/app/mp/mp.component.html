@@ -1,0 +1,58 @@
+<div class="mpbody lato-font">
+	<div class="list">
+		<div class="roomlistheader">
+			<button mat-raised-button
+                [matMenuTriggerFor]="new_mp"
+				color="accent"
+				class="rommheader lato-font"
+			>
+				New mp
+			</button>
+			<mat-menu #new_mp="matMenu" xPosition="before" class="lato-font">
+				<div *ngFor="let avuser of availableUserToMp">
+					<button mat-menu-item (click)="CreateMp(avuser.id)" class="alignmp lato-font">
+						<app-icone-avatar-chat   pic={{avuser.image_url}}></app-icone-avatar-chat>
+						<span>{{avuser.name}}</span>
+					</button>
+				</div>
+			</mat-menu>
+		</div>
+		<div class="roomdivcontent">
+			<div  class="roomdiv" *ngIf="mpList">
+				<div *ngFor="let mp of mpList">
+					<div (click)="onChangeMp(mp.idmp)" class="roomname" id="{{mp.idmp}}">
+						{{mp.user.name}} 
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="chat">
+		<div class="insertroom" *ngIf="selectedMp">
+			<app-mpchat
+				[iduser] = iduser
+				[user] = user
+				[socket] = socket
+				[selectedMp] = selectedMp
+				[friendList] = "friendList"
+				[friendListid] = "friendListid"
+				[blackList] = "blackList"
+				[blackListid] = "blackListid"
+				[mpMsgList] = "mpMsgList"
+
+				(onAddFriend) = addFriend($event)
+				(onRemoveFriend) = removeFriend($event)
+				(onBlockUser) = blockUser($event)
+				(onUnBlockUser) = unBlockUser($event)
+				(onInviteUser) = inviteUser($event)
+				(ongoToProfilePage) = goToProfilePage($event)
+			>
+			</app-mpchat>
+		</div>
+		<div *ngIf="!selectedMp" class="placeholdermp">
+			No selected Mp
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,254 @@
+<div class="settings" *ngIf="displaySetting">
+  <div class="settingcontent">
+	<button mat-icon-button (click)="closeSetting()" class="close" color="warn">
+		<mat-icon>close</mat-icon>
+	</button>
+	<div class="subcontent" id="settingcontent">
+		<fieldset class="neon">
+			<legend>
+				User parameter
+			</legend>
+			<div class="settinguserlist">
+				<div *ngFor="let user of userList">
+					<div class="settinguser">
+						<div class="firstinfo">
+							{{user.name}}
+						</div>
+						<div class="actionmodule">
+							<button mat-icon-button
+								[ngClass]="{
+									ismute: user.status === 'mute',
+									isnone: user.status === 'none'
+								}"
+								(click)="muteeuser(user)"
+								[disabled]="user.id === iduser || user.status === 'ban' || user.isadmin === '1'"
+							>
+
+								<mat-icon>volume_off</mat-icon>
+							</button>
+							<button mat-icon-button
+							[ngClass]="{
+									isban: user.status === 'ban',
+									isnone: user.status === 'none' || user.status === 'mute'
+								}"
+								(click)="banuser(user)"
+								[disabled]="user.id === iduser || user.isadmin === '1'"
+							>
+								<mat-icon>block</mat-icon>
+							</button>
+							<button mat-icon-button
+							[ngClass]="{
+									isadmin: user.isadmin == '1',
+									isnone: user.isadmin == '0'
+								}"
+								(click)="setadmin(user)"
+								[disabled]="user.id === iduser || (user.isadmin === '1' && user.issuperadmin === '1') || !isSuperAdmin"
+							>
+								<mat-icon>supervisor_account</mat-icon>
+							</button>
+							<button mat-icon-button color="warn"
+								(click)="deleteuser(user)"
+								[disabled]="user.id === iduser || user.isadmin === '1'"
+							>
+								<mat-icon>delete</mat-icon>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset class="neon">
+			<legend>
+				Invite user
+			</legend>
+			<div>
+
+				<mat-selection-list #inviteuser color="warn" class=" lato-font">
+					<mat-list-option *ngFor="let AvUser of availableUserList" (click)="selectUserToAdd(AvUser.id)" class="lato-font">
+						{{AvUser.name}}
+					</mat-list-option>
+				</mat-selection-list>
+				<button mat-raised-button class="editbtn lato-font" (click)="addUserOnChat()" color="accent"
+				 [disabled]="userToAdd.length === 0">Add to chat</button>
+
+			</div>
+
+		</fieldset>
+
+		<fieldset class="neon" *ngIf="isSuperAdmin">
+			<legend>
+				Chat parameter
+			</legend>
+			<div>
+				<div *ngIf="!editSetting" class="settingchat">
+					<div class="firstinfo">
+						{{namechat}}
+					</div>
+					<div class="actionmodule">
+						<mat-icon *ngIf="room.islocked">lock</mat-icon>
+						<mat-icon *ngIf="!room.islocked">lock_open</mat-icon>
+
+					</div>
+					<div class="endrow">
+						<button mat-icon-button (click)="edit()" color="warn">
+							<mat-icon>edit</mat-icon>
+						</button>
+					</div>
+				</div>
+				<div *ngIf="editSetting" class="onSettingEdit">
+					<form [formGroup]="form" >
+						<mat-form-field class="full-witdh lato-font" color="primary">
+							<mat-label>
+								new name
+							</mat-label>
+							<input matInput type="text" name="name" maxlength="13" formControlName="name">
+						</mat-form-field>
+						<br>
+						<label>private room : </label>
+						<mat-checkbox
+							(change)="setPrivate()"
+							formControlName="isprivate"
+							color="accent"
+							class="checkboxcreateroom lato-font"
+						>
+							yes
+						</mat-checkbox>
+						<br>
+						<label>locked room : </label>
+						<mat-checkbox
+							(change)="setLocked()"
+							formControlName="islocked"
+							color="accent"
+							class="checkboxcreateroom lato-font"
+						>
+							yes
+						</mat-checkbox>
+						<br>
+						<mat-form-field *ngIf="form.value.islocked" class="full-witdh lato-font" color="primary">
+							<mat-label>
+								new password :
+							</mat-label>
+							<input matInput type="text" name="password" formControlName="password">
+						</mat-form-field>
+						<br>
+
+						<button mat-raised-button class="editbtn lato-font" (click)="onEdit()" color="accent">Edit</button>
+						<button mat-raised-button class="editbtn lato-font" (click)="onCancel()" color="warn">cancel</button>
+
+					</form>
+				</div>
+			</div>
+
+		</fieldset>
+
+		<div class="middlebtn" *ngIf="isSuperAdmin">
+			<button mat-raised-button (click)="onDeleteChat()" color="warn" class="lato-font">Delete room</button>
+		</div>
+
+	</div>
+
+  </div>
+
+</div>
+<div class="chattable">
+	<div class="content">
+		<div class="title">
+			{{namechat}}
+			<button mat-icon-button (click)="roomSetting()" class="righticon" color="warn" *ngIf="isAdmin">
+				<mat-icon>settings</mat-icon>
+			</button>
+		</div>
+		<div class="chat" id="chat">
+			<div *ngFor="let msg of messages">
+				<div *ngIf="msg.userid == iduser" class="msgme chatmsg">
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}}
+					</div>
+				</div>
+
+				<div *ngIf="msg.userid != iduser && blackListid.indexOf(msg.userid) == -1" class="msg chatmsg" >
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}}
+					</div>
+				</div>
+				<div class="date" *ngIf="blackListid.indexOf(msg.userid) == -1">
+					{{msg.createdat  | date:'short'}}
+				</div>
+			</div>
+		</div>
+
+		<div class="input msg-input">
+			<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+				<mat-form-field class="full-witdh lato-font" >
+					<mat-label>
+						message
+					</mat-label>
+					<input [disabled]="userIsMute" matInput type="text" name="message" maxlength="2000" [(ngModel)]="msginput">
+					<button matSuffix mat-icon-button [disabled]="userIsMute" >
+						<mat-icon color="accent">send</mat-icon>
+					</button>
+				</mat-form-field>
+
+			</form>
+		</div>
+	</div>
+	<div class="userlistcontent">
+		<div class="userlist">
+			<div *ngFor="let user of userList">
+				<div class="username">
+					<div  clas="clickdiv">
+						<button mat-icon-button [disabled]="user.id === iduser" [matMenuTriggerFor]="usermenu">
+							<app-icone-avatar-chat pic={{user.path}}></app-icone-avatar-chat>
+						</button>
+						<br/>
+
+						{{user.name}}
+					</div>
+					<mat-menu #usermenu="matMenu" class="lato-font">
+						<mat-list>
+							<mat-list-item class="lato-font">
+								<app-icone-avatar-chat pic={{user.path}}></app-icone-avatar-chat>
+								<span>{{user.name}}</span>
+							</mat-list-item>
+						</mat-list>
+						<button mat-menu-item (click)="addFriend(user.id)" *ngIf="friendListid.indexOf(user.id) == -1 && blackListid.indexOf(user.id) == -1" class="lato-font">
+						  <mat-icon>add</mat-icon>
+						  <span>Add friend</span>
+						</button>
+						<button mat-menu-item (click)="removeFriend(user.id)" *ngIf="friendListid.indexOf(user.id) > -1" class="lato-font">
+							<mat-icon>remove</mat-icon>
+							<span>remove friend</span>
+						</button>
+						<button mat-menu-item (click)="blockUser(user.id)" *ngIf="blackListid.indexOf(user.id) == -1" class="lato-font">
+						  <mat-icon>block</mat-icon>
+						  <span>Block user</span>
+						</button>
+						<button mat-menu-item (click)="unBlockUser(user.id)" *ngIf="blackListid.indexOf(user.id) > -1" class="lato-font">
+							<mat-icon>motorcycle</mat-icon>
+							<span>Unblock user</span>
+						</button>
+						<button mat-menu-item (click)="inviteUser(user.id)" *ngIf="blackListid.indexOf(user.id) == -1" class="lato-font">
+							<mat-icon>games</mat-icon>
+							<span>Invit to play</span>
+						</button>
+						<button mat-menu-item (click)="goToProfilePage(user.id)" *ngIf="blackListid.indexOf(user.id) == -1" class="lato-font">
+							<mat-icon>local_pizza</mat-icon>
+							<span>Profile page</span>
+						</button>
+					  </mat-menu>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>

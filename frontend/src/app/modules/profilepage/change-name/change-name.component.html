@@ -1,0 +1,11 @@
+<button class="input" mat-raised-button>     
+    <mat-form-field appearance="legacy" class="fullwidth">
+        <mat-label>Your new name ?</mat-label>
+        <input matInput input id="code" type="text" [formControl]="new_name" class="entry">
+    </mat-form-field>
+
+</button>
+<button   mat-raised-button class="play"  color="primary"  (click)="newName()">
+    <mat-icon class="play">edit</mat-icon>
+</button>
+    <div>{{str_error}}</div>

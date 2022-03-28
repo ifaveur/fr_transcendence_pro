@@ -1,0 +1,54 @@
+.historyContent {
+    position: relative;
+    padding: 1px;
+}
+
+.userdiv {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.gameline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid #03042b;
+    margin: 25px;
+    width: calc(100% - 50px);
+    height: 100px;
+    border-radius: 10px;
+    overflow: auto;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.lefticon, .righticon {
+    margin-left: 12px;
+}
+
+.rightuser{
+    flex-direction: row-reverse;
+    text-align-last: end;
+}
+
+.middlediv {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+.info {
+    padding: 10px;
+    color: white;
+    flex: 1;
+}
+
+.rightscore {
+    text-align-last: left;
+}
+
+.leftscore {
+    text-align-last: right;
+}

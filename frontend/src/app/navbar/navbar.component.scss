@@ -1,0 +1,31 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+  .alignbadge {
+    display: inline-flex;
+    align-items: center ;
+    line-height: 0px!important;
+  }
+
+  .alignfriend {
+    display: flex;
+    align-items: center;
+    line-height: 1px !important;
+  }
+
+  .alignbadge.mat-badge {
+    display: flex;
+  }
+
+  .under {
+    line-height: 0px;
+  }
+
+
+
+  .icon {
+    margin-bottom: -12px!important;
+margin-top: 5px!important;
+  }
+  

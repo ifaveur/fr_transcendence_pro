@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>Action sur {{data.name}} </h1>
+<div mat-dialog-content>
+    <div *ngIf="data.type === 'mute'">
+        mute {{data.name}}
+        <br>
+        <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Mute for {{time}} {{unit[inc]}}</mat-label>
+            <input *ngIf="inc === 0" matInput type="number" min="10" step="10" [(ngModel)]="time">
+            <input *ngIf="inc != 0" matInput type="number" min="1" step="1" [(ngModel)]="time">
+        </mat-form-field>
+        <br>
+
+        <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>unité</mat-label>
+            <mat-select [(value)]="inc" (selectionChange)="reiniTime()">
+                <mat-option [value]="0">second</mat-option>
+                <mat-option [value]="1">minute</mat-option>
+                <mat-option [value]="2">hour</mat-option>
+                <mat-option [value]="3">day</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+
+        <button mat-raised-button [mat-dialog-close]="calculatetime()" cdkFocusInitial color="accent" style="margin: 10px;"
+            [disabled]="inc == 0 && time < 10 || inc != 0 && time < 1"
+        >ok</button>
+        <button mat-raised-button (click)="onNoClick()" color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+
+    <div *ngIf="data.type === 'unmute'">
+        Unmute {{data.name}}
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+    
+    <div *ngIf="data.type === 'ban'">
+        Ban {{data.name}}
+        <br>
+        <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>Ban for {{time}} {{unit[inc]}}</mat-label>
+            <input *ngIf="inc === 0" matInput type="number" min="10" step="10" [(ngModel)]="time">
+            <input *ngIf="inc != 0" matInput type="number" min="1" step="1" [(ngModel)]="time">
+            <!-- <input matInput type="number" min="0" step="10" [(ngModel)]="time"> -->
+          </mat-form-field>
+          <br>
+          
+        <mat-form-field appearance="fill"  style="width: 100%;">
+            <mat-label>unité</mat-label>
+            <mat-select [(value)]="inc" (selectionChange)="reiniTime()">
+                <mat-option [value]="0">second</mat-option>
+                <mat-option [value]="1">minute</mat-option>
+                <mat-option [value]="2">hour</mat-option>
+                <mat-option [value]="3">day</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+
+        <button mat-raised-button [mat-dialog-close]="calculatetime()" cdkFocusInitial color="accent" style="margin: 10px;"
+        [disabled]="inc == 0 && time < 10 || inc != 0 && time < 1"
+        >ok</button>
+        <button mat-raised-button (click)="onNoClick()" color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+
+    <div *ngIf="data.type === 'unban'">
+        Unban {{data.name}}
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+    
+    
+    <div *ngIf="data.type === 'admin'">
+        Set {{data.name}} as admin
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+
+    <div *ngIf="data.type === 'unadmin'">
+        Unset {{data.name}} as admin
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+
+    <div *ngIf="data.type === 'kick'">
+        kick {{data.name}} from chat
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+
+    <div *ngIf="data.type === 'deletechat'">
+        delete chat {{data.name}}
+        <br>
+        <button mat-raised-button [mat-dialog-close]="1" cdkFocusInitial color="accent" style="margin: 10px;">Confirm</button>
+        <button mat-raised-button [mat-dialog-close]="0" cdkFocusInitial color="warn" style="margin: 10px;">Cancel</button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="chattable lato-font">
+	<div class="content">
+
+        
+
+		<div class="chat" id="chat">
+			<div *ngFor="let msg of msgList">
+				<div *ngIf="msg.iduser == user?.id" class="msgme chatmsg">
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}} 
+					</div>
+				</div>
+		
+				<div *ngIf="msg.iduser != user?.id && blackListid.indexOf(msg.iduser) == -1" class="msg chatmsg" >
+					<div class="author">
+					{{msg.user?.name}}
+					</div>
+					<div class="message">
+					{{msg.message}}   
+					</div>
+				</div>
+				<div class="date" *ngIf="blackListid.indexOf(msg.iduser) == -1">
+					{{msg.updatedat  | date:'short'}}
+				</div>
+			</div>
+		</div>
+        <div class="input msg-input">
+			<form #fmp="ngForm" (ngSubmit)="onSubmit(fmp)">
+				<mat-form-field class="full-witdh lato-font" >
+					<mat-label>
+						message
+					</mat-label>
+					<input matInput type="text" name="message" maxlength="2000" [(ngModel)]="msginput" >
+					<button matSuffix mat-icon-button  >
+						<mat-icon color="accent">send</mat-icon>
+					</button>
+				</mat-form-field>
+	
+			</form>
+		</div>
+	</div>
+</div>

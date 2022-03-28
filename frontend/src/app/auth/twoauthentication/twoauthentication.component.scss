@@ -1,0 +1,147 @@
+@import url(https://fonts.googleapis.com/css?family=Audiowide);
+
+.centre {
+    margin-top: 15vh;
+    text-align: center;
+
+}
+
+.align {
+    align-items: center;
+}
+
+.titre {
+    font-size: 10vh;
+    margin-top: 10vh;
+    text-align: center;
+    font-family: 'Audiowide';
+    color: white
+}
+
+
+
+.bg {
+    /* The image used */
+    background-image: url("../../../assets/bg.jpg");
+    
+    /* Full height */
+    height: 100vh; 
+    width: 100vw;
+    
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: auto;
+    overflow-x: hidden;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    display: block;
+}
+
+.up-right {
+    text-align: right;
+    margin-top: -7.5vh;
+    margin-right: 10vh;
+}
+
+.élément {
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+
+.mat-icon {
+        color: white
+}
+
+.input {
+    margin-top: 2vh;
+    display: inline-block;
+    align-items: center;
+}
+
+.matInput {
+    align-items: center;
+}
+
+.mat-raised-button
+{
+    height: 6vh;
+    float:none;
+}
+
+
+
+.icon-email.mat-icon {
+    text-align: center;
+    height: 50%;
+    width: 100%;
+    font-size: 4vh;
+    display: block;
+}
+
+
+.email {
+    text-align: left;
+    vertical-align: center
+}
+
+.emailfalse {
+    text-align: center;
+    vertical-align: center
+}
+
+.email.mat-raised-button:hover {
+    background-color: rgb(13, 15, 158);
+    box-shadow: 0px 0px 5vh white;
+}
+
+.email.mat-raised-button {
+    vertical-align: bottom;
+}
+
+.input.mat-raised-button {
+    vertical-align: bottom;
+}
+
+.input.mat-form-field {
+    vertical-align: center;
+
+}
+
+    .play.mat-fab{
+    margin-top: 2vh;
+    height:20vh ;
+    width:20vh ;
+    font-size:5vh ;
+    color: black;
+}
+
+.mat-fab.mat-accent {
+    background-color: rgba(96, 0, 175);
+}
+
+
+.play.mat-icon{
+    font-size: 15vh;
+    text-align: center;
+    position: relative;
+    color: white;
+    height: 00%;
+    width: 100%;
+}
+
+.play.mat-fab:hover {
+    background-color: rgba(13, 15, 158, 0.5);
+    box-shadow: 0px 0px 3vh white;
+
+}
+    

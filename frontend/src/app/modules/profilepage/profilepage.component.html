@@ -1,0 +1,27 @@
+<div class="contentprofile">
+    <div class="userinfo" *ngIf="profileUser">
+        <div class="username" id="username">{{profileUser.name}}</div>
+        <div class="center"> <img  class="img-size" src="{{profileUser.image_url}}"></div>
+    </div>
+        <div class="userstat">
+
+        <app-statselector *ngIf="id"
+            [iduser] = user?.id
+			[user] = user
+			[socket] = socket
+            [dispayid] = id
+            [friendListid] = "friendListid"
+            [blackListid] = "blackListid"
+
+            (onAddFriend) = addFriend($event)
+            (onRemoveFriend) = removeFriend($event)
+            (onBlockUser) = blockUser($event)
+            (onUnBlockUser) = unBlockUser($event)
+            (onInviteUser) = inviteUser($event)
+            (ongoToProfilePage) = goToProfilePage($event)
+        >
+            
+        </app-statselector>
+    </div>
+</div>
+

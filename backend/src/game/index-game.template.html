@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+		<script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+		<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+		<script >
+			var socket = io('REPLACE_DOMAIN', {
+				auth: {
+					idUser: 'SERVER INSTANCE'
+				}
+			});
+			socket.emit('connectInstanceToGame');
+			var velocity = 600;
+
+			var r1, r2, paddleA, paddleB, botBound, topBound;
+			var ball;
+
+			var twoBalls = false;
+			var extraBall;
+
+			var ballOneReady = false;
+			var ballTwoReady = false;
+
+			var bumpers = false;
+			var starOne;
+			var starTwo;
+			var engage;
+
+
+			var timeSinceLastGoal = 0;
+			var goalForPlayerA = 0;
+
+			var scoreA = 0;
+			var scoreB = 0;
+
+			var pauseA = 2;
+			var pauseB = 2;
+
+		const config = {
+			type: Phaser.HEADLESS,
+			width: 800,
+			height: 600,
+			physics: {
+			  default: 'arcade',
+			  arcade: {
+				gravity: { x: 0, y: 0}
+			  },
+			},
+			scene: {
+			  preload: preload,
+			  create: create,
+			  update: update,
+			},
+			autoFocus: false,
+		};
+		const game = new Phaser.Game(config);
+
+		function preload() {
+
+		}
+
+		function create() {
+
+			/* Assets */
+			engage = true;
+			paddleA = this.add.rectangle(50, this.sys.canvas.height / 2, 30, 150);
+			paddleB = this.add.rectangle(this.sys.canvas.width - 50, this.sys.canvas.height / 2, 30, 150);
+
+
+			this.physics.add.existing(paddleA, false);
+			this.physics.add.existing(paddleB, false);
+
+			paddleA.body.immovable = true;
+			paddleB.body.immovable = true;
+
+			/* World physics */
+			topBound = this.add.rectangle(0, 0, this.sys.canvas.width, 1).setDisplayOrigin(0,0);
+			this.physics.add.existing(topBound, true);
+			botBound = this.add.rectangle(0, this.sys.canvas.height, this.sys.canvas.width, 1).setDisplayOrigin(0,0);
+			this.physics.add.existing(botBound, true);
+			this.physics.world.setBoundsCollision(false, false, true, true);
+
+
+			socket.on('options', (options) => {
+				// 1 = bumper, 2 = speed, 4 = extraball
+				if (options === 4 || options === 5 || options === 6 || options === 7){ //EXTRA BALL
+					twoBalls = true;
+					twoBallSetup(this);
+				} else {
+					oneBallSetup(this);
+				}
+
+				if (options === 1 || options === 3 || options === 5 || options === 7) { // BUMPERS
+					starOne = this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height * 0.25, 40, 40).setRotation(Math.PI / 4)
+					starTwo = this.add.rectangle(this.sys.canvas.width / 2, this.sys.canvas.height * 0.75, 40, 40).setRotation(Math.PI / 4)
+
+					this.physics.add.existing(starOne, false);
+					this.physics.add.existing(starTwo, false);
+
+					starOne.body.immovable = true;
+					starTwo.body.immovable = true;
+
+					this.physics.add.collider(ball, starOne)
+					this.physics.add.collider(ball, starTwo)
+
+					bumpers = true;
+				}
+				if (options === 2 || options === 3 || options === 6 || options === 7){ //LIGHT SPEED
+					velocity = 1000;
+				}
+
+			});
+
+			socket.on('endserver', () => {
+				console.log(">- - - - ENDSERVER - - - -<")
+				socket.off('options');
+				socket.off('endserver');
+				socket.off('pauseServer');
+				socket.off('moveA');
+				socket.off('moveB');
+				socket.off('resume');
+				socket.off('updatePlayersAndSpectList');
+				this.scene.stop();
+				this.scene.destroy();
+			})
+
+
+			socket.on('pauseServer', (data) => {
+				if (data.side == 'left' && pauseA > 0){
+					pauseA -= 1;
+					socket.emit('pauseConfirmed', data.PlayerName, pauseA, pauseB);
+					this.scene.pause();
+				}
+				if (data.side == 'right' && pauseB > 0){
+					pauseB -= 1;
+					socket.emit('pauseConfirmed', data.PlayerName, pauseA, pauseB);
+					this.scene.pause();
+				}
+			});
+
+			socket.on('moveA', value => {
+				paddleA.body.velocity.y = (velocity * value);
+			});
+
+			socket.on('moveB', value => {
+				paddleB.body.velocity.y = (velocity * value);
+			});
+
+			socket.on('resume', () => {
+				this.scene.resume();
+			});
+
+			socket.on('updatePlayersAndSpectList', () => {
+				socket.emit('updatePlayersAndSpectList')
+				socket.emit('HeadlessNewScore', prepareForEmitScore());
+			});
+
+		}
+
+		function update() {
+			if (paddleA.body.velocity.y !== undefined && paddleA.body.velocity.y !== 0){
+				if (paddleA.body.velocity.y < 0 && this.physics.collide(topBound, paddleA))
+					paddleA.body.velocity.y = 0;
+				if (paddleA.body.velocity.y > 0 && this.physics.collide(botBound, paddleA))
+					paddleA.body.velocity.y = 0;
+			}
+			if (paddleB.body.velocity.y !== undefined && paddleB.body.velocity.y !== 0){
+				if (paddleB.body.velocity.y < 0 && this.physics.collide(topBound, paddleB))
+					paddleB.body.velocity.y = 0;
+				if (paddleB.body.velocity.y > 0 && this.physics.collide(botBound, paddleB))
+					paddleB.body.velocity.y = 0;
+			}
+
+			// ONE BALL
+			if (ballOneReady && this.physics.collide(ball, paddleA)){
+				//on prend le point de ref pour l'angle sur la limite du canva
+				var angle =  Phaser.Math.Angle.Between(ball.body.center.x,ball.body.center.y, 0, paddleA.body.center.y);
+				angle = angle + Math.PI;
+				ball.body.velocity.setAngle(angle);
+			}
+
+			if (ballOneReady && this.physics.collide(ball, paddleB)){
+				//on prend le point de ref pour l'angle sur la limite du canva (a modifier si on change la width)
+				var angle =  Phaser.Math.Angle.Between(ball.body.center.x,ball.body.center.y, 800, paddleB.body.center.y);
+				angle = angle + Math.PI;
+				ball.body.velocity.setAngle(angle);
+			}
+
+			if(ballOneReady && !Phaser.Geom.Rectangle.Overlaps(this.physics.world.bounds, ball.getBounds())){
+				goalForPlayerA = 0;
+				if (ball.body.x < 0){
+					scoreB += 1;
+				} else {
+					scoreA += 1;
+					goalForPlayerA = 1;
+				}
+
+				ball.destroy();
+				ball = this.physics.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2 + (twoBalls ? 40 : 0), 'ball');
+				ball.setCollideWorldBounds(true);
+				ball.setBounce(1, 1);
+				ball.body.setCircle(ball.height / 2);
+				ball.setMaxVelocity(velocity + 200);
+
+				// OPTIONS //
+				if (bumpers){
+					this.physics.add.collider(ball, starOne)
+					this.physics.add.collider(ball, starTwo)
+				}
+				if (twoBalls) {
+					this.physics.add.collider(extraBall, ball);
+				}
+
+				if (scoreB >= 11 || scoreA >= 11) {
+					socket.emit('end', `${scoreA},${scoreB}`);
+				}
+				else
+					socket.emit('HeadlessNewScore', prepareForEmitScore());
+				this.time.delayedCall(2000, engageOneBall, null, this);
+			}
+
+			// TWO BALLS
+			if (twoBalls){
+				if (ballTwoReady && this.physics.collide(extraBall, paddleA)){
+					//on prend le point de ref pour l'angle sur la limite du canva
+					var angle =  Phaser.Math.Angle.Between(extraBall.body.center.x,extraBall.body.center.y, 0, paddleA.body.center.y);
+					angle = angle + Math.PI;
+					extraBall.body.velocity.setAngle(angle);
+				}
+
+				if (ballTwoReady && this.physics.collide(extraBall, paddleB)){
+					//on prend le point de ref pour l'angle sur la limite du canva (a modifier si on change la width)
+					var angle =  Phaser.Math.Angle.Between(extraBall.body.center.x,extraBall.body.center.y, 800, paddleB.body.center.y);
+					angle = angle + Math.PI;
+					extraBall.body.velocity.setAngle(angle);
+				}
+
+				if(ballTwoReady && !Phaser.Geom.Rectangle.Overlaps(this.physics.world.bounds, extraBall.getBounds())){
+					goalForPlayerA = 0;
+					if (extraBall.body.x < 0){
+						scoreB += 1;
+					} else {
+						scoreA += 1;
+						goalForPlayerA = 1;
+					}
+
+					extraBall.destroy();
+					extraBall = this.physics.add.sprite(this.sys.canvas.width / 2, this.sys.canvas.height / 2 - 40, 'ball');;
+					extraBall.setCollideWorldBounds(true);
+					extraBall.setBounce(1, 1);
+					extraBall.body.setCircle(extraBall.height / 2);
+					extraBall.setMaxVelocity(velocity + 200);
+
+					// OPTIONS //
+					if (bumpers){
+						this.physics.add.collider(extraBall, starOne)
+						this.physics.add.collider(extraBall, starTwo)
+					}
+
+					if (twoBalls) {
+						this.physics.add.collider(extraBall, ball);
+					}
+
+					if (scoreB >= 11 || scoreA >= 11) {
+						socket.emit('end', `${scoreA},${scoreB}`);
+					}
+					else
+						socket.emit('HeadlessNewScore', prepareForEmitScore());
+					this.time.delayedCall(2000, engageExtraBall, null, this);
+				}
+			}
+
+			if (ballOneReady)
+				socket.volatile.emit('HeadlessValues', prepareForEmit());
+		};
+
+		function prepareForEmit(){
+			if (twoBalls)
+			return `${Math.round(paddleA.y).toString(36)},${Math.round(paddleB.y).toString(36)},
+					${Math.round(ball.x).toString(36)},${Math.round(ball.y).toString(36)},
+					${Math.round(extraBall.x).toString(36)},${Math.round(extraBall.y).toString(36)}`
+			else
+			return `${Math.round(paddleA.y).toString(36)},${Math.round(paddleB.y).toString(36)},
+					${Math.round(ball.x).toString(36)},${Math.round(ball.y).toString(36)},
+					0,0`
+		  }
+
+		function prepareForEmitScore(){
+			return `${scoreA},${scoreB}`
+		  }
+
+		function endGame(){
+			socket.off('options');
+			socket.off('endserver');
+			socket.off('pauseServer');
+			socket.off('moveA');
+			socket.off('moveB');
+			socket.off('resume');
+			socket.off('updatePlayersAndSpectList');
+			this.scene.stop();
+			this.scene.destroy();
+			return `${scoreA},${scoreB}`;
+		}
+
+		function oneBallSetup(inst){
+			ball = inst.physics.add.sprite(inst.sys.canvas.width / 2, inst.sys.canvas.height / 2, 'ball');;
+			ball.setCollideWorldBounds(true);
+			ball.setBounce(1, 1);
+			ball.setMaxVelocity(velocity + 1000);
+
+			inst.time.delayedCall(2000, engageOneBall, null, inst);
+			ball.setAngle(Math.PI);
+			ball.body.setCircle(ball.height / 2);
+			ballOneReady = true;
+		}
+
+		function twoBallSetup(inst){
+			ball = inst.physics.add.sprite(inst.sys.canvas.width / 2, inst.sys.canvas.height / 2 + 40, 'ball');;
+			ball.setCollideWorldBounds(true);
+			ball.setBounce(1, 1);
+			ball.setMaxVelocity(velocity + 1000);
+
+			ball.setAngle(Math.PI);
+			ball.body.setCircle(ball.height / 2);
+			ballOneReady = true;
+
+			extraBall = inst.physics.add.sprite(inst.sys.canvas.width / 2, inst.sys.canvas.height / 2 - 40, 'ball');;
+			extraBall.setCollideWorldBounds(true);
+			extraBall.setBounce(1, 1);
+			extraBall.setMaxVelocity(velocity + 1000);
+
+			extraBall.setAngle(Math.PI);
+			extraBall.body.setCircle(ball.height / 2);
+			ballTwoReady = true;
+
+			inst.physics.add.collider(extraBall, ball);
+
+			engage = true;
+			inst.time.delayedCall(2000, engageExtraBall, null, inst);
+		}
+
+		function engageOneBall() {
+			if (ball.body.velocity.x === 0 && ball.body.velocity.y === 0) {
+				if (goalForPlayerA){
+					ball.setVelocityX(velocity);
+				}
+				else if (ball.body.velocity.x === 0 && ball.body.velocity.y === 0){
+					ball.setVelocityX(-velocity);
+				}
+				socket.emit('HeadlessNewScore', prepareForEmitScore());
+			}
+		}
+
+		function engageExtraBall() {
+			if (engage === true)
+				extraBall.setVelocityX(velocity);
+			else if (goalForPlayerA){
+				extraBall.setVelocityX(velocity);
+			}
+			else if (extraBall.body.velocity.x === 0 && extraBall.body.velocity.y === 0){
+				extraBall.setVelocityX(-velocity);
+			}
+			
+			if (ball.body.velocity.x === 0 && ball.body.velocity.y === 0) {
+				engageOneBall();
+			}
+		}
+
+
+		</script>
+
+    </body>
+</html>
+
+

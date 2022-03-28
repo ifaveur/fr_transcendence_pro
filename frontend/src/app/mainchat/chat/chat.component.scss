@@ -1,0 +1,266 @@
+@use '/src/styles.scss' as stl;
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.settings {
+    position: absolute;
+    display: flex;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 0px 9px rgba($color: rgb(0, 0, 0), $alpha: 0.6);
+}
+
+.settingcontent {
+    position: relative;
+    text-align: center;
+    display: block;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    background-color: stl.$ligth-background;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    color: white;
+}
+
+
+.input {
+    width: 100%;
+    flex: 0 1 40px;
+}
+
+.title {
+    color: white;
+    text-align: center;
+    border-bottom: solid #b3b4bf 2px;
+    padding-bottom: 5px;
+    margin: 5px;
+    font-size: x-large;
+    font-weight: bold;
+    flex: 0 1 auto;
+}
+
+.chat {
+    padding: 5px;
+    padding-bottom: 0px;
+    overflow-y: auto;
+    color: white;
+    flex: 1 1 200px;
+    scrollbar-gutter: stable;
+}
+
+.chatmsg {
+    line-height: 25px;
+    width: 80%;
+    word-wrap: break-word;
+}
+
+.msgme {
+    background-color: rgba($color: #0c0d6b, $alpha: 0.2);
+    border-radius: 5px;
+    margin: 5px;
+    margin-right: 40px;
+    padding: 5px;
+    border: #0c0d6b solid 1px;
+}
+
+.msg {
+    background-color: rgba($color: #06fa3b, $alpha: 0.2);
+    border-radius: 5px;
+    margin: 5px;
+    margin-left: auto;
+    padding: 5px;
+    border: #06fa3b solid 1px;
+}
+
+.author {
+    text-decoration: underline;
+
+}
+
+.msg {
+    .author {
+        text-align: right;
+    }
+}
+
+.date {
+    text-align: right;
+    font-size: 10px;
+}
+
+.msg-input {
+    border-top: 1px solid #b3b4bf;
+    padding-top: 5px;
+    color: white;
+    .mat-icon {
+        color: white;
+    }
+}
+
+.full-witdh {
+    width: 100%;
+}
+
+.righticon {
+    
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.chattable {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.content{
+    width:calc(100% - 75px - 40px);
+    scrollbar-gutter: stable;
+}
+
+.userlistcontent {
+    width: 75px;
+    height: calc(100% - 40px);
+    background-color: stl.$dark-blue;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    word-break: break-word;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 2px 2px rgba($color: black, $alpha: 0.2);
+}
+
+.userlist{
+    width: 75px;
+    background-color: stl.$dark-blue;
+    height: 100%;
+    overflow-y: auto;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    word-break: break-word;
+    scrollbar-gutter: stable;
+}
+
+
+.username {
+    margin: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+.img {
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    font-size: 35px;
+    border: 1px solid white;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+}
+
+.subcontent {
+    height: 100%;
+    overflow: auto;
+}
+
+
+
+.settinguser {
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+	display: flex;
+    align-items: center;
+}
+
+.isban, .ismute, .isadmin {
+    color: red;
+}
+
+.firstinfo {
+    flex: 1;
+    margin-left: 15px;
+    font-size: large;
+}
+
+.actionmodule {
+    flex: 1;
+}
+
+fieldset {
+    text-align: left;
+    margin: 30px;
+    
+    border:2px solid stl.$dark-blue;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;	
+    border-radius:10px;
+}
+
+legend {
+    font-size: large;
+    border:2px solid stl.$dark-blue;
+    border-radius:10px;
+    padding: 10px;
+    background-color: stl.$dark-blue;
+    font-weight: bold;
+}
+
+.endrow {
+    flex: 1;
+    text-align: end;
+}
+
+.settingchat {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .actionmodule {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+.editbtn {
+    margin: 10px;
+}
+
+.middlebtn {
+    margin-bottom: 20px;
+}
+
+.checkboxcreateroom {
+    margin: 10px;
+}
+
+.onSettingEdit {
+    text-align: center;
+}
+
+.clickdiv:hover {
+    cursor: pointer;
+}
